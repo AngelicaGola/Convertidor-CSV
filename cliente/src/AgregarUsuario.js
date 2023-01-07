@@ -4,51 +4,52 @@ import axios from 'axios';
 function AgregarUsuario() {
 
     //Hooks
-    const [nombre, setNombre] = useState('')
-    const [email, setEmail] = useState('')
-    const [telefono, setTelefono] = useState('')
+    const [csvString, setCsvString] = useState('');
+    const [csvFilename, setCsvFilename] = useState('');
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
 
-    function AgregarUsuario() {
-        var usuario = {
-            nombre: nombre,
-            email: email,
-            telefono: telefono,
-            idusuario: uniqid()
-        }
+        const leer = new FileReader();
 
-        console.log(usuario)
-        axios.post('/api/usuario/agregarusuario', usuario)
-            .then(res => {
-                alert(res.data)
+        leer.onload = () => {
+            setCsvString(leer.result);
+            setCsvFilename(event.target.files[0].name)
+            console.log(csvString);
+        };
+        leer.readAsText(file);
+    }
+
+    function subirArchivo() {
+        const data = { csvString, csvFilename }
+        console.log(data);
+
+        axios.post('/api/usuario/agregarusuario', data)
+
+            .then(response => {
+                console.log(response.data);
             })
-            .then(err => { console.log(err) })
+            .catch(error => {
+                console.log(error);
+            });
+
     }
 
     return (
         <div className="container">
             <div className="row">
-                <h2 className="mt-4">Crear un nuevo usuario</h2>
-            </div>
-
-            <div className="row">
                 <div className="col-sm-6 offset-3">
-                    <div className="mb-3">
-                        <label htmlFor="nombre" className="form-label"> Nombre </label>
-                        <input type="text" className="form-control" value={nombre} onChange={(e) => { setNombre(e.target.value) }}></input>
+                    <div className="mb-4">
+                        <label for="formFile" class="form-label">Suba el archio Csv que quiere visualizar</label>
+                        <input class="form-control" type="file" id="csv-file" accept=".csv" onChange={handleFileChange} />
+                        {csvString && <p>{csvString}</p>}
+
+
+                        <label className="mensaje" for="mensaje">Mensaje</label>
+                        <textarea name="" id="mensaje" cols="65" rows="10"></textarea>
                     </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label"> Email </label>
-                        <input type="text" className="form-control" value={email} onChange={(e) => { setEmail(e.target.value) }}></input>
-                    </div>
-
-                    <div className="mb-3">
-                        <label htmlFor="Telefono" className="form-label"> Telefono </label>
-                        <input type="text" className="form-control" value={telefono} onChange={(e) => { setTelefono(e.target.value) }}></input>
-                    </div>
-
-                    <button onClick={AgregarUsuario} className='btn btn-success'> Guardar Usuario</button>
+                    <button onClick={subirArchivo} className='btn btn-success mb-4'>Subir Archivo</button>
 
                 </div>
             </div>

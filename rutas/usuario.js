@@ -1,40 +1,58 @@
 const express = require('express')
+const csvParser = require('csv-parser')
+const { Readable } = require('stream')
+
+
 const router = express.Router()
+router.use(express.json())
 
 const mongoose = require('mongoose')
-const eschema = mongoose.Schema
-
-const eschemaUsuario = new eschema({
-    nombre: String,
-    email: String,
-    telefono: String,
-    idusuario: String
-})
-
-const ModeloUsuario = mongoose.model('Usuarios', eschemaUsuario)
 module.exports = router
-
-// Ruta de prueba
-// router.get('/ejemplo', (req, res) => {
-//     res.end('Saludo carga desde ruta ejemplo')
-// })
 
 //Agregar Usuario
 router.post('/agregarusuario', (req, res) => {
-    const nuevoUsuario = new ModeloUsuario({
-        nombre: req.body.nombre,
-        email: req.body.email,
-        telefono: req.body.telefono,
-        idusuario: req.body.idusuario
-    })
-    nuevoUsuario.save(function (err) {
-        if (!err) {
-            res.send('Usuario agregado correctamente')
-        } else {
-            res.send(err)
-        }
-    })
-})
+    const csvDatos = []
+
+    // convertir el body de la respuesta a string
+    const csvStream = new Readable();
+    const csvFileName = req.body.csvFilename
+
+    csvStream.push(req.body.csvString);
+
+    // console.log(req.body);
+    csvStream.push(null);
+
+
+    csvStream
+        .pipe(csvParser())
+        .on('data', row => {
+            csvDatos.push(row)
+        })
+        .on('end', () => {
+            // obtener los headers de la primera fila del csv
+            console.log(Object.keys(csvDatos[0]));
+            const headers = Object.keys(csvDatos[0])
+            // crear un esquema dinamico utilizando los headers
+            const csvSchema = mongoose.Schema(
+                headers.reduce((schema, header) => {
+                    schema[header] = String
+                    return schema
+                }, {})
+            )
+            const Csv = mongoose.model(csvFileName, csvSchema, csvFileName)
+            csvDatos.forEach(data => {
+                const csv = new Csv(data)
+                csv.save((err, csv) => {
+                    if (err) return console.error(err)
+                    console.log('csv guardado: ${csv.name}')
+                })
+            });
+            res.send({ message: 'success a MongDB' })
+
+        });
+
+
+});
 
 // Obtener todos los usuarios
 router.get('/obtenerusuarios', (req, res) => {
