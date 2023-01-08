@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-function UsuarioIndividual({ usuario }) {
+function TablaArchivo({ usuario }) {
     // Funcion para borrar usuario
     function borrarusuario(idusuario) {
 
@@ -38,4 +38,4 @@ function UsuarioIndividual({ usuario }) {
     )
 }
 
-export default UsuarioIndividual;
+export default TablaArchivo;

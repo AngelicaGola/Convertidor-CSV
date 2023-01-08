@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import ListaUsuarios from './ListaUsuarios';
+import ListaArchivos from './ListaArchivos';
 import AgregarArchivo from './AgregarArchivo';
-import EditarUsuario from './EditarUsuario';
+import TablaArchivo from './TablaArchivo';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
@@ -26,9 +26,9 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<ListaUsuarios />}></Route>
+          <Route path='/' element={<ListaArchivos />}></Route>
           <Route path='/agregararchivo' element={<AgregarArchivo />}></Route>
-          <Route path='/editarusuario/:idusuario' element={<EditarUsuario />}></Route>
+          <Route path='/tablaArchivo/:name' element={<TablaArchivo />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

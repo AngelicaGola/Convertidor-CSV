@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import uniqid from 'uniqid';
 import axios from 'axios';
+import './AgregarArchivo.css';
 function AgregarArchivo() {
 
     //Hooks
@@ -36,9 +37,9 @@ function AgregarArchivo() {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-sm-6 offset-3">
+                <div className="col-sm-6 contenido">
                     <div className="mb-4">
-                        <label for="formFile" class="form-label">Suba el archio Csv que quiere visualizar</label>
+                        <label for="formFile" className="form-label">Suba el archio Csv que quiere visualizar</label>
                         <input class="form-control" type="file" id="csv-file" accept=".csv" onChange={handleFileChange} />
                         {csvString && <p>{csvString}</p>}
                     </div>
@@ -48,39 +49,6 @@ function AgregarArchivo() {
 
                 </div>
             </div>
-
-            <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
         </div>
 
 
