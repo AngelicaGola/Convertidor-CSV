@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import ListaUsuarios from './ListaUsuarios';
-import AgregarUsuario from './AgregarUsuario';
+import AgregarArchivo from './AgregarArchivo';
 import EditarUsuario from './EditarUsuario';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -17,8 +17,8 @@ function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <a className="nav-link active" aria-current="page" href="/">Inicio</a>
-              <a className="nav-link" href="agregarusuario">Agregar Usuario</a>
+              <a className="nav-link" aria-current="page" href="/">Ver registros</a>
+              <a className="nav-link" href="agregararchivo">Agregar archivo </a>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<ListaUsuarios />}></Route>
-          <Route path='/agregarusuario' element={<AgregarUsuario />}></Route>
+          <Route path='/agregararchivo' element={<AgregarArchivo />}></Route>
           <Route path='/editarusuario/:idusuario' element={<EditarUsuario />}></Route>
         </Routes>
       </BrowserRouter>

@@ -6,7 +6,7 @@ function ListaUsuarios() {
     const [datasUsuarios, setdataUsuario] = useState([])
 
     useEffect(() => {
-        axios.get('/api/usuario/obtenerusuarios').then(res => {
+        axios.get('/api/archivo/obtenerarchivos').then(res => {
             console.log(res.data)
             setdataUsuario(res.data)
         }).catch(err => {
@@ -24,7 +24,7 @@ function ListaUsuarios() {
     })
     return (
         <div>
-            <h2>lista de usuarios</h2>
+            <h2>Lista de archivos registrados</h2>
             {listausuarios}
         </div>
     )

@@ -12,7 +12,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: 'true' }))
 
-app.use('/api/usuario', rutaUsuario)
+app.use('/api/archivo', rutaUsuario)
 
 
 app.get('/', (req, res) => {

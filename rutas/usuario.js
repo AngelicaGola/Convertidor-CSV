@@ -1,3 +1,5 @@
+
+
 const express = require('express')
 const csvParser = require('csv-parser')
 const { Readable } = require('stream')
@@ -9,8 +11,8 @@ router.use(express.json())
 const mongoose = require('mongoose')
 module.exports = router
 
-//Agregar Usuario
-router.post('/agregarusuario', (req, res) => {
+//Agregar Archivos
+router.post('/agregararchivo', (req, res) => {
     const csvDatos = []
 
     // convertir el body de la respuesta a string
@@ -54,26 +56,52 @@ router.post('/agregarusuario', (req, res) => {
 
 });
 
-// Obtener todos los usuarios
-router.get('/obtenerusuarios', (req, res) => {
-    ModeloUsuario.find({}, function (docs, err) {
-        if (!err) {
-            res.send(docs)
-        } else {
-            res.send(err)
+// Obtener nombre de los archivos
+router.get('/obtenerarchivos', (req, res) => {
+    mongoose.connection.db.listCollections().toArray((error, collections) => {
+        if (error) {
+            console.error(error);
+            return;
         }
+        const collectionNames = collections.map(collection => collection.name);
+        res.send(collectionNames);
     })
 })
 
-// obtener data de usuario
-router.post('/obtenerdatausuario', (req, res) => {
-    ModeloUsuario.find({ idusuario: req.body.idusuario }, function (docs, err) {
-        if (!err) {
-            res.send(docs)
+// obtener datos de archivo csv
+router.get('/obtenerarchivo', (req, res) => {
+    const { name } = req.query;
+    const collection = mongoose.connection.collection(name)
+    collection.findOne((error, document) => {
+        if (error) {
+            console.error(error)
         } else {
-            res.send(err)
+            const fields = Object.keys(document)
+            const schema = {}
+            fields.forEach((field) => {
+                schema[field] = mongoose.Schema.Types.Mixed
+            })
+            // console.log(schema)
+
+
+            // console.log(name);
+            const collection = mongoose.model(name, schema, name)
+
+            collection.find({}, (error, documents) => {
+
+                if (error) {
+                    console.error(error);
+                    return res.status(500).send(error);
+                }
+
+                res.send(documents);
+            })
+
         }
     })
+
+
+
 })
 
 //Actualizar Usuario
