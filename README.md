@@ -3,14 +3,19 @@
 ## Ejecución de la aplicación
 •	Al ingresar a la página encontrará en el NavBar dos botones - “Ver archivos” y “Agregar archivo”. 
 ![](https://github.com/AngelicaGola/Proyecto-MERN-/blob/main/assets/navbar.JPG)
+
 •	Para ingresar por primera vez un archivo csv diríjase al botón “Agregar archivo”, acá podrá subir el archivo luego de oprimir el botón “Subir Archivo”
 ![](https://github.com/AngelicaGola/Proyecto-MERN-/blob/main/assets/agregarArchivo.JPG)
+
 •	Le aparecerá un alert avisando que el archivo se subió correctamente, ademas lo dirigirá a la página de inicio automáticamente 
 ![](https://github.com/AngelicaGola/Proyecto-MERN-/blob/main/assets/agregarArchivoExitosa.JPG)
+
 •	Una vez subido el archivo diríjase al botón “Ver archivos”, acá aparecerá automáticamente el nombre del archivo registrado. Dándole click sobre este podrá consultar y visualizar en pantalla los datos que tiene el archivo csv.
 ![](https://github.com/AngelicaGola/Proyecto-MERN-/blob/main/assets/verArchivo.JPG)
-![](https://github.com/AngelicaGola/Proyecto-MERN-/blob/main/assets/verArchivoTabla.JPG)
+
+
 •	Podrá subir todos los archivos que desee, todos estos se podrán visualizar en la pantalla “Ver Archivos”. 
+![](https://github.com/AngelicaGola/Proyecto-MERN-/blob/main/assets/verArchivoTabla.JPG)
 
 ## Como se desarrolló la aplicación: 
 •	El Front de la aplicación se realizó en React.js
