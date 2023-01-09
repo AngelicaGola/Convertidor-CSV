@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import uniqid from 'uniqid';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './AgregarArchivo.css';
+
 function AgregarArchivo() {
 
     //Hooks
     const [csvString, setCsvString] = useState('');
     const [csvFilename, setCsvFilename] = useState('');
+
+    //para volver al index
+    const navegar = useNavigate()
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -29,6 +33,8 @@ function AgregarArchivo() {
 
             .then(response => {
                 console.log(response.data);
+                alert('El archivo se guardo correctamente')
+                navegar('/')
             })
             .catch(error => {
                 console.log(error);
@@ -41,17 +47,11 @@ function AgregarArchivo() {
                     <div className="mb-4">
                         <label for="formFile" className="form-label">Suba el archio Csv</label>
                         <input class="form-control" type="file" id="csv-file" accept=".csv" onChange={handleFileChange} />
-                        {csvString && <p>{csvString}</p>}
                     </div>
-
-
                     <button onClick={subirArchivo} className="btn btn-success mb-4">Subir Archivo</button>
-
                 </div>
             </div>
         </div>
-
-
     )
 }
 

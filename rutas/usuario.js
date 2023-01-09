@@ -1,5 +1,3 @@
-
-
 const express = require('express')
 const csvParser = require('csv-parser')
 const { Readable } = require('stream')
@@ -10,6 +8,7 @@ router.use(express.json())
 
 const mongoose = require('mongoose')
 module.exports = router
+
 
 //Agregar Archivos
 router.post('/agregararchivo', (req, res) => {
@@ -23,7 +22,6 @@ router.post('/agregararchivo', (req, res) => {
 
     // console.log(req.body);
     csvStream.push(null);
-
 
     csvStream
         .pipe(csvParser())
@@ -46,14 +44,12 @@ router.post('/agregararchivo', (req, res) => {
                 const csv = new Csv(data)
                 csv.save((err, csv) => {
                     if (err) return console.error(err)
-                    console.log('csv guardado: ${csv.name}')
+                    console.log('csv guardado')
                 })
             });
-            res.send({ message: 'success a MongDB' })
+            res.send({ message: 'Se envio correctamente a MongDB' })
 
         });
-
-
 });
 
 // Obtener nombre de los archivos
@@ -68,8 +64,10 @@ router.get('/obtenerarchivos', (req, res) => {
     })
 })
 
+
 // obtener datos de archivo csv
 router.get('/obtenerarchivo', (req, res) => {
+
     const { name } = req.query;
     const collection = mongoose.connection.collection(name)
     collection.findOne((error, document) => {
@@ -81,10 +79,7 @@ router.get('/obtenerarchivo', (req, res) => {
             fields.forEach((field) => {
                 schema[field] = mongoose.Schema.Types.Mixed
             })
-            // console.log(schema)
 
-
-            // console.log(name);
             const collection = mongoose.model(name, schema, name)
 
             collection.find({}, (error, documents) => {
@@ -93,42 +88,11 @@ router.get('/obtenerarchivo', (req, res) => {
                     console.error(error);
                     return res.status(500).send(error);
                 }
-
                 res.send(documents);
             })
-
         }
     })
 
 
-
 })
 
-//Actualizar Usuario
-router.post('/actulizausuario', (req, res) => {
-    ModeloUsuario.findOneAndUpdate({ idusuario: req.body.idusuario }, {
-        nombre: req.body.nombre,
-        email: req.body.email,
-        telefono: req.body.telefono,
-
-    }, (err) => {
-        if (!err) {
-            res.send('Usuario actualizado correctamente')
-        } else {
-            res.send(err)
-        }
-
-    })
-})
-
-//Borrar Usuario
-router.post('/borrarusuario', (req, res) => {
-    ModeloUsuario.findOneAndDelete({ idusuario: req.body.idusuario }, (err) => {
-        if (!err) {
-            res.send('Usuario borrado correctamente')
-        } else {
-            res.send(err)
-        }
-
-    })
-})

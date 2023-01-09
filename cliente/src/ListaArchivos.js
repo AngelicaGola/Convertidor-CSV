@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useTable } from 'react-table'
+
 function ListaArchivos() {
 
     const [datasUsuarios, setdataUsuario] = useState([])
@@ -10,7 +11,6 @@ function ListaArchivos() {
     useEffect(() => {
         axios.get('/api/archivo/obtenerarchivos').then(res => {
             setdataUsuario(res.data)
-            // console.log(datasUsuarios)
         }).catch(err => {
             console.log(err)
         })
@@ -25,7 +25,6 @@ function ListaArchivos() {
     function mostrarTabla(name) {
         console.log(name)
         axios.get('/api/archivo/obtenerarchivo', { params: { name: name } }).then(res => {
-            // console.log(res.data)
             setValuesTabla(res.data)
             for (const obj of res.data) {
                 for (const key in obj) {
@@ -39,8 +38,7 @@ function ListaArchivos() {
                 break;
             }
             setcolumTabla(columns)
-            columns = []
-            // console.log(columns)
+            // columns = []
         }).catch(err => {
             console.log(err);
         })
@@ -99,34 +97,14 @@ function ListaArchivos() {
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <div className="col-xl-9">
                     <div>
                         <Table columns={columTabla} data={valuesTabla}></Table>
-                        {/* {keys.map((item, index) => (
-                            <li key={index}>{item}</li>
-                        ))} */}
-                        {/* {keys.map(innerArray => {
-                            return innerArray.map(element => {
-                                return <div>{element}</div>;
-                            });
-                        })}
-                        <div>
-                            {values.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
-                        </div> */}
-
                     </div>
-
-
                 </div>
 
             </div>
-
-            {/* {listausuarios} */}
         </div>
     )
 }

@@ -1,8 +1,8 @@
-import logo from './logo.svg';
+
 import './App.css';
 import ListaArchivos from './ListaArchivos';
 import AgregarArchivo from './AgregarArchivo';
-import TablaArchivo from './TablaArchivo';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
@@ -28,7 +28,6 @@ function App() {
         <Routes>
           <Route path='/' element={<ListaArchivos />}></Route>
           <Route path='/agregararchivo' element={<AgregarArchivo />}></Route>
-          <Route path='/tablaArchivo/:name' element={<TablaArchivo />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
