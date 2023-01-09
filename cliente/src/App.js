@@ -17,7 +17,7 @@ function App() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <a className="nav-link" aria-current="page" href="/">Ver registros</a>
+              <a className="nav-link" aria-current="page" href="/">Ver archivos</a>
               <a className="nav-link" href="agregararchivo">Agregar archivo </a>
             </div>
           </div>

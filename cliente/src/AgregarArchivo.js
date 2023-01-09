@@ -39,7 +39,7 @@ function AgregarArchivo() {
             <div className="row">
                 <div className="col-sm-6 contenido">
                     <div className="mb-4">
-                        <label for="formFile" className="form-label">Suba el archio Csv que quiere visualizar</label>
+                        <label for="formFile" className="form-label">Suba el archio Csv</label>
                         <input class="form-control" type="file" id="csv-file" accept=".csv" onChange={handleFileChange} />
                         {csvString && <p>{csvString}</p>}
                     </div>
