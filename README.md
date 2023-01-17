@@ -1,4 +1,4 @@
-# Proyecto-MERN-
+# Convertidor CSV
 
 ## Ejecución de la aplicación
 *	Al ingresar a la página encontrará en el NavBar dos botones - “Ver archivos” y “Agregar archivo”. 
